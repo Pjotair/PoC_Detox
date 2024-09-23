@@ -8,7 +8,7 @@ Inside, you'll find:
 
 This Proof of Concept aims to demonstrate the basics capabilities of Detox and provide a practical starting point for incorporating automated testing into your React Native development workflow.
 
-The PoC presented here and the description of the environment configuration was done using macOS Sonoma 14.7 other versions of the operating system may require a different approach or if you are working with Windows/Linux you will not run the simulator and tests for iOS.
+The PoC presented here and the description of the environment configuration was done using `macOS Sonoma 14.7` other versions of the operating system may require a different approach or if you are working with Windows/Linux you will not run the simulator and tests for iOS.
 
 The last successful launch was on September 23, 2024
 
@@ -22,6 +22,7 @@ The last successful launch was on September 23, 2024
   * [Detox Setup](#detox-setup) 
 * [Run Test](#run-test) 
 * [How to set up new project with Bare workflow](#how-to-set-up-new-project-with-bare-workflow)
+* [Documentation references](#documentation-references)
 
 ## Set up Environment
 Before you can preview your app, you'll need to build it as a standalone app on your machine, since the Expo Go wrapper app won't be available for this process (coworking with Detox).
@@ -86,14 +87,13 @@ If you have installed multiple versions on your system, you can set any version 
 ```zsh
 nvm alias default 20
 ```
-between easily.
+Similarly, you can install other versions like Node 12, 16, 18, and 21 versions and switch between easily.
 
 Conclusion
 That’s it. You have successfully installed and configured NVM on your macOS system. This tutorial also guides you through the basic uses of NVM, including installing Node.js versions, switching between different Node.js versions, and setting a specific version as the default. Once installed, developers can easily switch between versions as per their project requirements
 
 [^ back to Table of Content](#table-of-content)
 
----
 ---
 
 ### Android Studio Emulator
@@ -146,29 +146,29 @@ sudo gem install cocoapods
 ---
 
 ## Detox Setup
-Install Detox
+1. Install Detox
 
 ```zsh
 npm install detox-cli --global
 ```
 
-Install required tool by Detox to work with iOS simulators
+2. Install required tool by Detox to work with iOS simulators
 ```zsh
 brew tap wix/brew
 brew install applesimutils
 ```
 
-Go to your project's root folder, i.e., where package.json is found, and run:
+3. Go to your project's root folder, i.e., where package.json is found, and run:
 ```zsh
 npm install "jest@^29" --save-dev
 ```
 
-Install Detox in your project
+4. Install Detox in your project
 ```zsh
 npm install detox --save-dev
 ```
 
-Initialize Detox in your project:
+5. Initialize Detox in your project:
 ```zsh
 detox init
 ```
@@ -192,16 +192,23 @@ Run the configured android emulator
 
 ## Run Test
 
-Run the configured android emulator or iOS simulator.
+1. Run the configured android emulator or iOS simulator.
 
-Build the app
+**Android emulator** <br>
+Run Android Studio, and that should have some more actions button. And in there you will find a Virtual Device Manager.
+Click next, then choose an Android version that will run on this emulator. And here choose the API version, click next keep all the default settings here and click finish button. And now this will create such a new emulator. And then you can click the play button to launch this emulator. And this will now launch this emulator on your device.
+
+**iOS simulator** <br>
+This only works on macOS. Here in Xcode you wanna open this as well. Please start Xcode, you don't have to open a project. You just need to open Xcode, and then you should go to the preferences there. In the preferences make sure you go to locations and here under command line tools make sure you have a version selected here. By default no version is selected and you should do that then select a version here. Once this is done, you can close it.
+
+2. Build the app
 ```zsh
 detox build --configuration android.emu.debug
 # or
 detox build --configuration ios.sim.debug
 ```
 
-Start your app with Metro
+3. Start your app with Metro
 ```zsh
 npm run android
 # or
@@ -217,7 +224,7 @@ npm run ios
 >3. To make this change permanent, edit your shell configuration file (e.g., ~/.bashrc, ~/.zshrc) and add the same ulimit command. Finaly you need to reload your .zshrc file to apply the changes: `source ~/.zshrc`.
 
 
-Split your terminal and use command to start testing:
+4. Split your terminal and use command to start testing:
 ```zsh
 detox test --configuration android.emu.debug
 # or
