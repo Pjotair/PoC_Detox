@@ -2,21 +2,10 @@ import { useState } from 'react';
 import { StyleSheet, Text, View, Modal, TouchableOpacity, TextInput, Image, ScrollView, Alert } from 'react-native';
 
 export default function App() {
-  const [counter, setCounter] = useState(0);
   const [isModalVisible, setIsModalVisible] = useState(false);
-
-  const handleIncrement = () => {
-    setCounter(counter + 1);
-  };
-
-  const handleReset = () => {
-    setCounter(0);
-  };
-
   const handleOpenModal = () => {
     setIsModalVisible(true);
   };
-
   const handleCloseModal = () => {
     setIsModalVisible(false);
   };
@@ -31,16 +20,22 @@ export default function App() {
     );
   };
 
+  const [counter, setCounter] = useState(0);
+  const handleIncrement = () => {
+    setCounter(counter + 1);
+  };
+  const handleReset = () => {
+    setCounter(0);
+  };
+
   const [inputText, setInputText] = useState('');
   const [displayedText, setDisplayedText] = useState('...');
   const handleInputChange = (text) => {
     setInputText(text);
   };
-
   const handleDisplayText = () => {
     setDisplayedText(inputText);
   };
-
   const handleClearText = () => {
     setDisplayedText('...');
     setInputText('');
@@ -50,30 +45,30 @@ export default function App() {
     <View style={styles.appContainer}>
 
       <View id='appHeader' style={styles.appHeader}>
-        <View><Image source={require('./assets/demo.png')} /></View>
-        <View><Text style={styles.appHeaderText}>PoC Detox App</Text></View>
+        <View><Image source={require('./assets/parrot.png')} style={styles.imgIcon} testID='icon'/></View>
+        <View><Text style={styles.appHeaderText} testID='header'>PoC Detox App</Text></View>
       </View>
 
       <View id='contentContainer' style={styles.contentContainer}>
         <Text style={styles.contentTitle}>Actions</Text>
         <View id='actions' style={styles.actionButtons}>
           <View style={styles.actionButtonsPositions}>
-            <TouchableOpacity onPress={handleOpenModal} style={styles.button}>
+            <TouchableOpacity onPress={handleOpenModal} style={styles.button} testID='openModalButton'>
               <Text style={styles.buttonText}>Open Modal</Text>
             </TouchableOpacity>
 
             <Modal visible={isModalVisible} animationType="slide">
               <View style={styles.modalBackground}>
                 <View style={styles.modalContainer}>
-                  <Text>Eg. modal</Text>
-                  <TouchableOpacity onPress={handleCloseModal} style={styles.button}>
+                  <Text testID='modalContent'>Modal content</Text>
+                  <TouchableOpacity onPress={handleCloseModal} style={styles.button} testID='closeModalButton'>
                     <Text style={styles.buttonText}>Close</Text>
                   </TouchableOpacity>
                 </View>
               </View>
             </Modal>
 
-            <TouchableOpacity onPress={showAlert} style={styles.button}>
+            <TouchableOpacity onPress={showAlert} style={styles.button} testID='openAlertButton'>
               <Text style={styles.buttonText}>Trigger Alert</Text>
             </TouchableOpacity>
           </View>
@@ -82,31 +77,31 @@ export default function App() {
         <Text style={styles.contentTitle}>Counter</Text>
         <View id='counter' style={styles.actionButtons}>
           <View style={styles.actionButtonsPositions}>
-            <TouchableOpacity onPress={handleIncrement} style={styles.button}>
+            <TouchableOpacity onPress={handleIncrement} style={styles.button} testID='plusOneButton'>
               <Text style={styles.buttonText}>+1 Button</Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={handleReset} style={styles.button}>
+            <TouchableOpacity onPress={handleReset} style={styles.button} testID='resetCounterButton'>
               <Text style={styles.buttonText}>Reset counter</Text>
             </TouchableOpacity>
           </View>
-          <Text style={styles.counter}>Counter: {counter}</Text>
+          <Text style={styles.counter} testID='counter'>Counter: {counter}</Text>
         </View>
 
         <Text style={styles.contentTitle}>Text introducer</Text>
         <View id='input'>
-
           <TextInput
             style={styles.input}
             placeholder="Provide your text..."
             onChangeText={handleInputChange}
             value={inputText}
+            testID='textInput'
           />
           <View style={styles.actionButtons}>
             <View style={styles.actionButtonsPositions}>
-              <TouchableOpacity onPress={handleDisplayText} style={styles.button}>
+              <TouchableOpacity onPress={handleDisplayText} style={styles.button} testID='enterTextButton'>
                 <Text style={styles.buttonText}>Enter Text</Text>
               </TouchableOpacity>
-              <TouchableOpacity onPress={handleClearText} style={styles.button}>
+              <TouchableOpacity onPress={handleClearText} style={styles.button} testID='ClearTextButton'>
                 <Text style={styles.buttonText}>Clear Text</Text>
               </TouchableOpacity>
 
@@ -114,18 +109,18 @@ export default function App() {
           </View>
           <View style={styles.providedTextContainer}>
             <Text style={styles.content}>The text provided is: </Text>
-            <Text style={styles.providedText}>{displayedText}</Text>
+            <Text style={styles.providedText} testID='providedText'>{displayedText}</Text>
           </View>
         </View>
 
-        <ScrollView id='article'>
+        <ScrollView id='article' testID='articleContainer'>
           <Text style={styles.contentTitle}>Some Article</Text>
           <Text style={styles.content}>{detoxText}</Text>
         </ScrollView>
       </View>
 
       <View id='appFooter' style={styles.appFooter}>
-        <Text style={styles.appFooterText}>PoC Detox App, 2024</Text>
+        <Text style={styles.appFooterText} testID='footerText'>PoC Detox App, v1.0.0</Text>
       </View>
 
     </View>
@@ -135,7 +130,7 @@ export default function App() {
 const styles = StyleSheet.create({
   appContainer: {
     flex: 1,
-    paddingTop: 30,
+    paddingTop: 50,
     paddingHorizontal: 15,
     backgroundColor: '#ffffff',
   },
@@ -153,6 +148,10 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     paddingLeft: 8,
     letterSpacing: 2,
+  },
+  imgIcon: {
+    width: 95,
+    height: 57
   },
   actionButtons: {
     flexDirection: 'column',
@@ -197,7 +196,7 @@ const styles = StyleSheet.create({
     color: "#4682b4"
   },
   appFooterText: {
-    padding: 8,
+    paddingVertical: 15,
     color: '#4682b4',
     textAlign: 'center'
   },
@@ -232,7 +231,6 @@ const styles = StyleSheet.create({
   buttonText: {
     color: '#4682b4',
     padding: 4,
-
   }
 });
 
