@@ -4,6 +4,9 @@ export class MainView {
     headerIcon;
     headerText;
     openModalButton;
+    counterPlusOneButton;
+    counterReserButton;
+    counterValue;
     articleContainer;
     footerText;
 
@@ -14,6 +17,11 @@ export class MainView {
 
         // Actions
         this.openModalButton = element(by.id('openModalButton'));
+
+        //Counter
+        this.counterPlusOneButton = element(by.id('plusOneButton'))
+        this.counterResetButton = element(by.id('resetCounterButton'))
+        this.counterDisplayer = element(by.id('counter'))
 
         // Content
         this.articleContainer = element(by.id('articleContainer'));

@@ -1,4 +1,4 @@
-import { expect, element, by } from "detox";
+import { expect } from "detox";
 import { MainView } from "./Views/main-view";
 import { ModalView } from "./Views/modal-view";
 import testData from "./testData";
@@ -41,6 +41,23 @@ describe('Example', () => {
     await closeModalButton.tap();
 
     await expect(modalContent).not.toBeVisible();
+  });
+
+  it('User can use counter', async () => {
+    const counterIncrementButton = mainView.counterPlusOneButton;
+    const counterResetButton = mainView.counterResetButton;
+    let counterDisplayer = mainView.counterDisplayer;
+    
+    
+    await waitFor(counterDisplayer).toBeVisible().withTimeout(2000);
+    await expect(counterDisplayer).toHaveText(testData.counter.baseValue);
+
+    await counterIncrementButton.tap();
+    await expect(counterDisplayer).toBeVisible();
+    await expect(counterDisplayer).toHaveText('Counter: 1');
+    waitFor(counterDisplayer);
+    await counterResetButton.tap();
+    await expect(counterDisplayer).toHaveText(testData.counter.baseValue);
   });
 
   it('User can scroll through the content', async () => {
