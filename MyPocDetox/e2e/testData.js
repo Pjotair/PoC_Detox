@@ -6,5 +6,9 @@ module.exports = {
     },
     counter: {
         baseValue: "Counter: 0"
+    },
+    textIntroducer: {
+        baseText: "...",
+        exampleText: "My test content"
     }
 }

@@ -60,6 +60,28 @@ describe('Example', () => {
     await expect(counterDisplayer).toHaveText(testData.counter.baseValue);
   });
 
+  it('The User can enter and erases text', async () => {
+    const textInput = mainView.textIntroducerInput;
+    await expect(textInput).toBeVisible();
+    await textInput.typeText(testData.textIntroducer.exampleText);
+
+    const enterTextButton = mainView.textIntroducerEnterButton;
+    waitFor(enterTextButton);
+    await enterTextButton.tap();
+
+    const providedText = mainView.textIntroducerProvided;
+    waitFor(providedText);
+    await expect(providedText).toBeVisible();
+    await expect(providedText).toHaveText(testData.textIntroducer.exampleText);
+
+    const clearTextButton = mainView.textIntroducerClearButton;
+    waitFor(clearTextButton);
+    await expect(clearTextButton).toBeVisible();
+    await clearTextButton.tap();
+    waitFor(providedText);
+    await expect(providedText).toHaveText(testData.textIntroducer.baseText);
+  });
+
   it('User can scroll through the content', async () => {
     const articleContainer = mainView.articleContainer;
     await articleContainer.scrollTo('bottom');
