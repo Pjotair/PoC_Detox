@@ -4,6 +4,7 @@ export class MainView {
     headerIcon;
     headerText;
     openModalButton;
+    triggerAlertButton;
     counterPlusOneButton;
     counterReserButton;
     counterValue;
@@ -21,6 +22,7 @@ export class MainView {
 
         // Actions
         this.openModalButton = element(by.id('openModalButton'));
+        this.triggerAlertButton = element(by.id('openAlertButton'));
 
         //Counter
         this.counterPlusOneButton = element(by.id('plusOneButton'));

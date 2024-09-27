@@ -1,12 +1,14 @@
 import { expect } from "detox";
 import { MainView } from "./Views/main-view";
 import { ModalView } from "./Views/modal-view";
+import { AlertView } from "./Views/alert-view";
 import testData from "./testData";
 
 
 describe('Example', () => {
   let mainView;
   let modalView;
+  let alertView;
   beforeAll(async () => {
     await device.launchApp();
   });
@@ -14,18 +16,13 @@ describe('Example', () => {
   beforeEach(async () => {
     mainView = new MainView();
     modalView = new ModalView();
+    alertView = new AlertView();
     await device.reloadReactNative();
   });
 
   it('Application has a header', async () => {
     await expect(mainView.headerIcon).toBeVisible();
     await expect(mainView.headerText).toHaveText(testData.headerText);
-  });
-
-  it('Application footer has correct app version', async () => {
-    const footerTextElement = mainView.footerText;
-    await waitFor(footerTextElement).toBeVisible().withTimeout(2000);
-    await expect(footerTextElement).toHaveText(testData.footerText);
   });
 
   it('Open close Modal', async () => {
@@ -43,18 +40,32 @@ describe('Example', () => {
     await expect(modalContent).not.toBeVisible();
   });
 
+  it('Open close Alert', async () => {
+    const openAlertButton = mainView.triggerAlertButton;
+    await openAlertButton.tap();
+
+    const alertContent = alertView.alertContent;
+    waitFor(alertContent);
+    await expect(alertContent).toHaveText(testData.alert.content);
+
+    const closeAlertButton = alertView.closeAlert;
+    waitFor(closeAlertButton);
+    await closeAlertButton.tap();
+    
+    await expect(closeAlertButton).not.toBeVisible();
+  });
+
   it('User can use counter', async () => {
     const counterIncrementButton = mainView.counterPlusOneButton;
     const counterResetButton = mainView.counterResetButton;
     let counterDisplayer = mainView.counterDisplayer;
     
-    
     await waitFor(counterDisplayer).toBeVisible().withTimeout(2000);
     await expect(counterDisplayer).toHaveText(testData.counter.baseValue);
 
-    await counterIncrementButton.tap();
+    await counterIncrementButton.multiTap(3);
     await expect(counterDisplayer).toBeVisible();
-    await expect(counterDisplayer).toHaveText('Counter: 1');
+    await expect(counterDisplayer).toHaveText('Counter: 3');
     waitFor(counterDisplayer);
     await counterResetButton.tap();
     await expect(counterDisplayer).toHaveText(testData.counter.baseValue);
@@ -86,5 +97,11 @@ describe('Example', () => {
     const articleContainer = mainView.articleContainer;
     await articleContainer.scrollTo('bottom');
     await articleContainer.scrollTo('top');
+  });
+
+  it('Application footer has correct app version', async () => {
+    const footerTextElement = mainView.footerText;
+    await waitFor(footerTextElement).toBeVisible().withTimeout(2000);
+    await expect(footerTextElement).toHaveText(testData.footerText);
   });
 });

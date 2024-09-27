@@ -4,6 +4,9 @@ module.exports = {
     modal: {
         content: "Modal content"
     },
+    alert: {
+        content: "Trigger Alert"
+    },
     counter: {
         baseValue: "Counter: 0"
     },
