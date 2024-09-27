@@ -10,7 +10,7 @@ This Proof of Concept aims to demonstrate the basics capabilities of Detox and p
 
 The PoC presented here and the description of the environment configuration was done using `macOS Sonoma 14.7` other versions of the operating system may require a different approach or if you are working with Windows/Linux you will not run the simulator and tests for iOS.
 
-The last successful launch was on September 23, 2024
+The last successful launch was on September 27, 2024
 
 ## Table of Content
 * [General Info](#poc_detox---general-info)
@@ -113,7 +113,8 @@ After you install the JDK, add the JAVA_HOME environment variable in ~/.bash_pro
 export JAVA_HOME=/Library/Java/JavaVirtualMachines/zulu-17.jdk/Contents/Home
 ```
 #### Set up Android Studio
-[Link to Expo Documentation - Set up Android Studio](https://docs.expo.dev/workflow/android-studio-emulator/#set-up-android-studio)
+Go to the documentation and follow the steps given there 
+[-> go to set up Android Studio](https://docs.expo.dev/workflow/android-studio-emulator/#set-up-android-studio)
 
 When setting environment variables (Step 6), you will probably need to add more lines like here:
 ```txt
@@ -124,7 +125,8 @@ export PATH=$PATH:$ANDROID_HOME/tools/bin
 export PATH=$PATH:$ANDROID_HOME/platform-tools
 ```
 #### Set up an Android emulator
-[Link to Expo Documentation - Set up an emulator](https://docs.expo.dev/workflow/android-studio-emulator/#set-up-an-emulator)
+Go to the documentation and follow the steps given there
+[-> go to set up an emulator](https://docs.expo.dev/workflow/android-studio-emulator/#set-up-an-emulator)
 
 
 [^ back to Table of Content](#table-of-content)
@@ -132,7 +134,8 @@ export PATH=$PATH:$ANDROID_HOME/platform-tools
 ---
 
 ### iOS Simulator
-[Link to Expo Documentation - iOS Simulator](https://docs.expo.dev/workflow/ios-simulator/)
+Go to the documentation and follow the steps given there
+[-> go to set up iOS Simulator](https://docs.expo.dev/workflow/ios-simulator/)
 
 Make sure you have downloaded and installed the iOS simulator Xcode > Settings > Components
 
@@ -141,6 +144,18 @@ Install CocoaPods
 ```zsh
 sudo gem install cocoapods
 ```
+
+When installing cocoapods, you may receive a message about the need to perform additional installations:
+```zsh
+sudo gem install drb -v 2.0.6
+# or other version
+```
+
+```zsh
+sudo gem install activesupport -v 6.1.7.8 
+# or other version
+```
+
 [^ back to Table of Content](#table-of-content)
 
 ---
@@ -182,7 +197,8 @@ Remember to install the dependencies
 npm i
 ```
 
-[go to Detox documentation](https://wix.github.io/Detox/docs/introduction/project-setup#step-2-app-configs)
+Go to the documentation and follow the steps given there
+[-> go to Detox documentation](https://wix.github.io/Detox/docs/introduction/project-setup#step-2-app-configs)
 
 Run the configured android emulator
 
@@ -243,12 +259,17 @@ You may need to build the app locally and install it on emulators on your machin
 Once your environment is configured, building and testing your app locally becomes straightforward. There are two scripts in the package.json file that you can use to build and test the app.
 In this case, I'll run the command npm run android, which will build the Android version of the app and launch it on an Android emulator that I already have running. Once the build is complete, the app will be installed on the emulator.
 
+Make sure to install `expo-cli`:
+```zsh
+sudo npm install -g expo-cli
+```
 
-Create new project
+1. Create new project
 ```zsh
 expo init
 ```
-Choose a template:
+
+2. Choose a template:
 >  `minimal` bare and minimal, just the essentials to get you started
 
 Remember to install the dependencies (inside the root directory in the project)
